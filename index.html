@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraksha - Disaster Preparedness Platform</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='2' y1='12' x2='22' y2='12'%3E%3C/line%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'%3E%3C/path%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .hero-bg {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('https://placehold.co/1200x600/3498db/ffffff?text=Stay+Safe.+Stay+Prepared.');
+            background-size: cover;
+            background-position: center 40%;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- App Container -->
+    <div id="app" class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-2" onclick="navigateTo('home')">
+                    <!-- New Logo SVG -->
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8">
+                        <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z" class="text-blue-600" fill="currentColor"/>
+                        <path d="M13 16h-2v-3H8v-2h3V8h2v3h3v2h-3v3z" class="text-white" fill="currentColor"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-blue-600">Suraksha</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition duration-300" onclick="navigateTo('home')">Home</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition duration-300" onclick="navigateTo('modules')">Learn</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition duration-300" onclick="navigateTo('alerts')">Alerts</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition duration-300" onclick="navigateTo('directory')">Directory</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition duration-300" onclick="navigateTo('dashboard')">Dashboard</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                     <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300" onclick="navigateTo('login')">Login</a>
+                     <button class="md:hidden" id="mobile-menu-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                     </button>
+                </div>
+            </nav>
+            <!-- Mobile Menu -->
+            <div class="hidden md:hidden" id="mobile-menu">
+                <a href="#" class="block py-2 px-4 text-sm hover:bg-slate-100" onclick="navigateTo('home')">Home</a>
+                <a href="#" class="block py-2 px-4 text-sm hover:bg-slate-100" onclick="navigateTo('modules')">Learn</a>
+                <a href="#" class="block py-2 px-4 text-sm hover:bg-slate-100" onclick="navigateTo('alerts')">Alerts</a>
+                <a href="#" class="block py-2 px-4 text-sm hover:bg-slate-100" onclick="navigateTo('directory')">Directory</a>
+                <a href="#" class="block py-2 px-4 text-sm hover:bg-slate-100" onclick="navigateTo('dashboard')">Dashboard</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="container mx-auto px-6 py-8">
+            <!-- Page content will be injected here -->
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-800 text-white mt-12">
+            <div class="container mx-auto px-6 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Suraksha</h3>
+                        <p class="text-slate-400">Your trusted partner in disaster preparedness education. Empowering communities for a safer tomorrow.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-slate-400 hover:text-white" onclick="navigateTo('home')">Home</a></li>
+                            <li><a href="#" class="text-slate-400 hover:text-white" onclick="navigateTo('modules')">Learning Modules</a></li>
+                            <li><a href="#" class="text-slate-400 hover:text-white" onclick="navigateTo('alerts')">Regional Alerts</a></li>
+                            <li><a href="#" class="text-slate-400 hover:text-white" onclick="navigateTo('directory')">Emergency Directory</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                        <p class="text-slate-400">National Disaster Management Authority<br>NDMA Bhawan, A-1, Safdarjung Enclave<br>New Delhi - 110029</p>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="facebook"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="twitter"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 border-t border-slate-700 pt-6 text-center text-slate-500 text-sm">
+                    &copy; 2025 Suraksha Platform. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        const mainContent = document.getElementById('main-content');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- MOCK DATA ---
+        const disasterModules = [
+            { id: 'earthquake', title: 'Earthquake Safety', icon: 'zap', color: 'yellow', description: 'Learn how to stay safe before, during, and after an earthquake.',
+              content: {
+                info: `
+                    <h3 class="text-2xl font-bold mb-4">Understanding Earthquakes</h3>
+                    <p class="mb-4">An earthquake is the shaking of the surface of the Earth resulting from a sudden release of energy in the Earth's lithosphere that creates seismic waves. The seismic activity of an area is the frequency, type, and size of earthquakes experienced over a period of time.</p>
+                    <h4 class="text-xl font-semibold mt-6 mb-2">Before an Earthquake:</h4>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Secure heavy furniture to walls.</li>
+                        <li>Prepare an emergency kit with water, food, first aid, and a flashlight.</li>
+                        <li>Identify safe spots in each room (under a sturdy table, against an interior wall).</li>
+                    </ul>
+                    <h4 class="text-xl font-semibold mt-6 mb-2">During an Earthquake:</h4>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Drop, Cover, and Hold On!</strong> Drop to your hands and knees. Cover your head and neck under a sturdy table or desk. Hold on until the shaking stops.</li>
+                        <li>If indoors, stay inside. If outdoors, find a clear spot away from buildings and trees.</li>
+                    </ul>
+                     <h4 class="text-xl font-semibold mt-6 mb-2">After an Earthquake:</h4>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Check for injuries and provide first aid.</li>
+                        <li>Be prepared for aftershocks.</li>
+                        <li>Listen to authorities for information and instructions.</li>
+                    </ul>
+                `,
+                video: 'https://www.youtube.com/embed/G3pQp_oB-ws',
+                quiz: [
+                    { q: "What is the first thing you should do during an earthquake?", a: ["Run outside", "Drop, Cover, and Hold On", "Call for help"], correct: 1 },
+                    { q: "Where is a safe spot during an earthquake indoors?", a: ["Near a window", "Under a sturdy table", "In an elevator"], correct: 1 },
+                    { q: "What should you prepare in an emergency kit?", a: ["Video games", "Water, food, and first aid", "School books"], correct: 1 }
+                ],
+                drill: {
+                    title: "Virtual Earthquake Drill",
+                    steps: [
+                        "Imagine the ground is shaking violently. What's your first move? (Correct: Drop down)",
+                        "You've dropped to the floor. What's next to protect yourself? (Correct: Take cover under a desk)",
+                        "The shaking continues. What's the final action? (Correct: Hold on to the desk leg)",
+                        "The shaking stops. You wait for 60 seconds. What do you do now? (Correct: Carefully check your surroundings and evacuate if safe.)"
+                    ]
+                }
+              }
+            },
+            { id: 'flood', title: 'Flood Awareness', icon: 'waves', color: 'blue', description: 'Understand flood risks and how to respond effectively to protect yourself and your family.',
+                content: {
+                    info: `
+                        <h3 class="text-2xl font-bold mb-4">Flood Safety Measures</h3>
+                        <p class="mb-4">Floods are the most frequent type of natural disaster and occur when an overflow of water submerges land that is usually dry. Floods are often caused by heavy rainfall, rapid snowmelt, or a storm surge from a tropical cyclone or tsunami in coastal areas.</p>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">If a flood is likely in your area, you should:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Listen to the radio or television for information.</li>
+                            <li>Be aware that flash flooding can occur. If there is any possibility of a flash flood, move immediately to higher ground.</li>
+                            <li>Be prepared to evacuate.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">During a Flood:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Do not walk, swim, or drive through floodwaters. Turn Around, Don’t Drown!</li>
+                            <li>Stay off bridges over fast-moving water.</li>
+                            <li>Evacuate immediately, if told to do so.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">After a Flood:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Avoid floodwaters as they may be contaminated.</li>
+                            <li>Stay away from downed power lines.</li>
+                            <li>Return home only when authorities say it is safe.</li>
+                    </ul>
+                    `,
+                    video: 'https://www.youtube.com/embed/yYyGN5-2a6A',
+                    quiz: [
+                        { q: "What should you do if you encounter floodwaters while driving?", a: ["Drive through quickly", "Turn around and find another route", "Wait for the water to go down"], correct: 1 },
+                        { q: "Why should you avoid floodwater?", a: ["It's cold", "It can be contaminated and hide dangers", "It will ruin your shoes"], correct: 1 }
+                    ],
+                    drill: {
+                        title: "Virtual Flood Evacuation Drill",
+                        steps: [
+                            "You hear a flood warning for your area. What is the first essential action? (Correct: Gather your emergency kit and important documents)",
+                            "You are instructed to evacuate. Which route do you take? (Correct: The pre-planned evacuation route to higher ground)",
+                            "On your way, you see a flooded road. What do you do? (Correct: Turn around and find an alternative path)",
+                            "You've reached a safe shelter. What is your next communication step? (Correct: Inform your family/emergency contacts that you are safe)"
+                        ]
+                    }
+                }
+            },
+            { id: 'fire', title: 'Fire Safety', icon: 'flame', color: 'red', description: 'Essential fire prevention tips and what to do in case of a fire emergency at school or home.',
+                content: {
+                    info: `
+                        <h3 class="text-2xl font-bold mb-4">Fire Safety Essentials</h3>
+                        <p class="mb-4">Fire is a major hazard in any environment. Knowing how to prevent fires and how to react in a fire emergency can save lives. Most fires are preventable.</p>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">Fire Prevention:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Never leave cooking unattended.</li>
+                            <li>Check electrical wiring and don't overload sockets.</li>
+                            <li>Keep flammable materials away from heat sources.</li>
+                            <li>Install and regularly check smoke alarms.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">In Case of a Fire:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Activate the nearest fire alarm.</li>
+                            <li>If the fire is small, you might use a fire extinguisher (if trained).</li>
+                            <li>If the fire is spreading, evacuate immediately. Don't stop to collect belongings.</li>
+                            <li>Stay low to the ground to avoid smoke inhalation.</li>
+                            <li>Before opening a door, feel it with the back of your hand. If it's hot, find another way out.</li>
+                            <li>Once you are out, stay out! Call the fire department from a safe location.</li>
+                        </ul>
+                    `,
+                    video: 'https://www.youtube.com/embed/FR--F4gtnI8',
+                    quiz: [
+                        { q: "What should you do before opening a door during a fire?", a: ["Knock loudly", "Feel it with the back of your hand for heat", "Shout for help"], correct: 1 },
+                        { q: "Why should you stay low to the ground during a fire?", a: ["To move faster", "To avoid smoke and toxic gases", "To see better"], correct: 1 }
+                    ],
+                    drill: {
+                        title: "Virtual Fire Evacuation Drill",
+                        steps: [
+                            "You see smoke coming from a classroom. What is your immediate action? (Correct: Activate the nearest fire alarm pull station)",
+                            "The fire alarm is sounding. How do you exit the building? (Correct: Follow the nearest marked exit route calmly)",
+                            "You reach a closed door on your escape path. What do you do? (Correct: Check if it's hot with the back of your hand before opening)",
+                            "You have safely evacuated. Where do you go now? (Correct: To the designated assembly point outside)"
+                        ]
+                    }
+                }
+            },
+            { id: 'cyclone', title: 'Cyclone Preparedness', icon: 'cyclone', color: 'teal', description: 'Learn how to prepare for and stay safe during cyclones, especially in coastal regions.',
+                content: {
+                    info: `
+                        <h3 class="text-2xl font-bold mb-4">Cyclone Safety Guide</h3>
+                        <p class="mb-4">Cyclones are large-scale, rotating storms that form over tropical or subtropical waters. They are characterized by high winds, heavy rain, and storm surges in coastal areas.</p>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">Before a Cyclone:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Board up windows or put up storm shutters.</li>
+                            <li>Secure loose objects outside that could become projectiles in high winds.</li>
+                            <li>Ensure your emergency kit is fully stocked.</li>
+                            <li>Stay informed through official weather channels.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">During a Cyclone:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Stay indoors and away from windows.</li>
+                            <li>Listen to the radio for updates.</li>
+                            <li>If the 'eye' of the storm passes over, do not go outside. The winds will resume from the other direction.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-6 mb-2">After a Cyclone:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Wait for official clearance before going outside.</li>
+                            <li>Be aware of downed power lines, fallen trees, and flooded areas.</li>
+                            <li>Do not use contaminated water.</li>
+                        </ul>
+                    `,
+                    video: 'https://www.youtube.com/embed/S2iGB-dG9lI',
+                    quiz: [
+                        { q: "What is a major danger from cyclones in coastal areas besides wind?", a: ["Earthquakes", "Storm surge", "Drought"], correct: 1 },
+                        { q: "What should you do if the calm 'eye' of the cyclone is over you?", a: ["Go outside to check for damage", "Stay indoors as the storm is not over", "Start cleaning up"], correct: 1 }
+                    ],
+                    drill: {
+                        title: "Virtual Cyclone Drill",
+                        steps: [
+                            "A cyclone warning is issued. What's a key preparation step for your house? (Correct: Securing loose items outdoors)",
+                            "The cyclone makes landfall. Where is the safest place to be? (Correct: In an interior room, away from windows)",
+                            "You lose electricity. What should you use for light? (Correct: Flashlights or battery-powered lanterns, not candles)",
+                            "The storm has passed. What is a critical danger to look out for outside? (Correct: Downed power lines)"
+                        ]
+                    }
+                }
+            },
+        ];
+
+        const alerts = {
+            'Andhra Pradesh': { level: 'Orange', type: 'Cyclone', message: 'A cyclone is expected to make landfall in the next 48 hours. Please stay tuned for evacuation notices.'},
+            'Maharashtra': { level: 'Yellow', type: 'Flood', message: 'Heavy monsoon rains expected. Low-lying areas in Mumbai and Pune are at risk of urban flooding.'},
+            'Delhi': { level: 'Red', type: 'Heatwave', message: 'Severe heatwave conditions predicted for the next 72 hours. Avoid outdoor activities between 11 AM and 4 PM.'},
+            'Uttarakhand': { level: 'Orange', type: 'Landslide', message: 'Risk of landslides in hilly regions due to incessant rainfall. Avoid travel to higher altitudes.'},
+            'West Bengal': { level: 'Yellow', type: 'Flood', message: 'Rivers are flowing above the danger mark. Coastal districts are on high alert for flooding.'}
+        };
+
+        const emergencyContacts = [
+            { name: 'National Emergency Number', number: '112' },
+            { name: 'Police', number: '100' },
+            { name: 'Fire', number: '101' },
+            { name: 'Ambulance', number: '102 / 108' },
+            { name: 'Disaster Management Services', number: '1078' },
+            { name: 'Women Helpline', number: '1091' },
+            { name: 'Child Helpline', number: '1098' },
+        ];
+
+
+        // --- PAGE RENDER FUNCTIONS ---
+
+        const renderHomePage = () => {
+            mainContent.innerHTML = `
+                <section class="hero-bg text-white rounded-xl overflow-hidden">
+                    <div class="h-full bg-black bg-opacity-50">
+                        <div class="container mx-auto px-6 pt-12 pb-36 text-center">
+                            <h1 class="text-4xl md:text-6xl font-extrabold mb-24 leading-tight">Be Prepared, Not Scared</h1>
+                            <div class="space-x-6">
+                                <a href="#" onclick="navigateTo('modules')" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300">Start Learning</a>
+                                <a href="#" onclick="navigateTo('alerts')" class="bg-white bg-opacity-20 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-opacity-30 transition duration-300">View Alerts</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-12 text-center">
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto text-slate-700 font-medium">Empowering India's students with the knowledge to act decisively in emergencies. Your safety is our mission.</p>
+                </section>
+
+                <section class="pt-4 pb-16">
+                    <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                               <i data-lucide="book-open-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Interactive Modules</h3>
+                            <p class="text-slate-600">Engaging lessons on earthquakes, floods, fires, and more.</p>
+                        </div>
+                         <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-red-100 text-red-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="siren" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Region-Specific Alerts</h3>
+                            <p class="text-slate-600">Real-time (simulated) alerts for your specific location.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-green-100 text-green-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                               <i data-lucide="gamepad-2" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Gamified Learning</h3>
+                            <p class="text-slate-600">Quizzes and virtual drills to make learning fun and effective.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
+                            <div class="bg-purple-100 text-purple-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Admin Dashboard</h3>
+                            <p class="text-slate-600">Track preparedness scores and participation for your institution.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="bg-blue-50 rounded-lg p-8 md:p-12">
+                     <h2 class="text-3xl font-bold text-center mb-12">Our Mission</h2>
+                     <p class="max-w-4xl mx-auto text-center text-slate-700 text-lg">
+                        In a country as diverse and dynamic as India, preparedness is paramount. Suraksha aims to bridge the gap in disaster management education by providing a robust, accessible, and engaging digital platform. We believe that by educating our youth, we are not just securing our schools and colleges, but building a resilient nation capable of facing any adversity with knowledge and courage.
+                     </p>
+                </section>
+            `;
+            lucide.createIcons();
+        };
+
+        const renderModulesPage = () => {
+             mainContent.innerHTML = `
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold">Learning Modules</h1>
+                    <p class="text-slate-600 mt-2">Choose a topic to learn about disaster preparedness.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    ${disasterModules.map(module => `
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer" onclick="navigateTo('moduleDetail', '${module.id}')">
+                            <div class="p-6 bg-${module.color}-500 text-white flex items-center justify-center h-32">
+                                <i data-lucide="${module.icon}" class="w-16 h-16"></i>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2">${module.title}</h3>
+                                <p class="text-slate-600">${module.description}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            lucide.createIcons();
+        };
+
+        const renderModuleDetailPage = (moduleId) => {
+            const module = disasterModules.find(m => m.id === moduleId);
+            if (!module) {
+                mainContent.innerHTML = `<p>Module not found.</p>`;
+                return;
+            }
+            
+            mainContent.innerHTML = `
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <i data-lucide="${module.icon}" class="w-12 h-12 text-${module.color}-500 mr-4"></i>
+                        <h1 class="text-4xl font-bold">${module.title}</h1>
+                    </div>
+                    <div id="module-content">
+                        ${module.content.info}
+                    </div>
+
+                    <!-- Video Tutorial Section -->
+                    <h3 class="text-2xl font-bold mt-8 mb-4">Video Tutorial</h3>
+                    <div class="relative w-full max-w-2xl mx-auto shadow-lg rounded-lg overflow-hidden group">
+                        <a href="https://www.youtube.com/watch?v=${module.content.video.split('/').pop()}" target="_blank" rel="noopener noreferrer" class="block">
+                            <img src="https://img.youtube.com/vi/${module.content.video.split('/').pop()}/hqdefault.jpg" alt="Video tutorial for ${module.title}" class="w-full h-auto object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition duration-300 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play-circle opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform duration-300"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8"/></svg>
+                            </div>
+                        </a>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-2 text-center">Click the thumbnail to watch the video on YouTube (opens in a new tab).</p>
+
+
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300" onclick="showQuiz('${moduleId}')">Take the Quiz</button>
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300" onclick="startDrill('${moduleId}')">Start Virtual Drill</button>
+                        <button class="bg-slate-500 text-white px-6 py-2 rounded-lg hover:bg-slate-600 transition duration-300" onclick="navigateTo('modules')">Back to Modules</button>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        };
+        
+        const showQuiz = (moduleId) => {
+            const module = disasterModules.find(m => m.id === moduleId);
+            const contentDiv = document.getElementById('module-content');
+            let quizHTML = `<h3 class="text-2xl font-bold mb-4">Knowledge Check Quiz</h3>`;
+            
+            module.content.quiz.forEach((q, index) => {
+                quizHTML += `
+                    <div class="mb-6" id="quiz-q-${index}">
+                        <p class="font-semibold mb-2">${index + 1}. ${q.q}</p>
+                        <div class="space-y-2">
+                            ${q.a.map((option, i) => `
+                                <label class="flex items-center p-3 border rounded-lg hover:bg-slate-50">
+                                    <input type="radio" name="q${index}" value="${i}" class="mr-3">
+                                    <span>${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                        <p id="feedback-${index}" class="mt-2 text-sm"></p>
+                    </div>
+                `;
+            });
+
+            quizHTML += `<button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700" onclick="submitQuiz('${moduleId}')">Submit Answers</button>`;
+            contentDiv.innerHTML = quizHTML;
+        };
+
+        const submitQuiz = (moduleId) => {
+            const module = disasterModules.find(m => m.id === moduleId);
+            let score = 0;
+            module.content.quiz.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback-${index}`);
+                if (selected) {
+                    if (parseInt(selected.value) === q.correct) {
+                        score++;
+                        feedbackEl.textContent = "Correct!";
+                        feedbackEl.className = "mt-2 text-sm text-green-600 font-semibold";
+                    } else {
+                        feedbackEl.textContent = `Incorrect. The correct answer is: ${q.a[q.correct]}`;
+                         feedbackEl.className = "mt-2 text-sm text-red-600 font-semibold";
+                    }
+                } else {
+                     feedbackEl.textContent = "You didn't answer this question.";
+                     feedbackEl.className = "mt-2 text-sm text-yellow-600 font-semibold";
+                }
+            });
+            alert(`You scored ${score} out of ${module.content.quiz.length}!`);
+        };
+
+        const startDrill = (moduleId) => {
+            const module = disasterModules.find(m => m.id === moduleId);
+            const contentDiv = document.getElementById('module-content');
+            let currentStep = 0;
+
+            const renderDrillStep = () => {
+                if (currentStep >= module.content.drill.steps.length) {
+                    contentDiv.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-4">Drill Complete!</h3>
+                        <p>Great job! You've completed the virtual drill. Repetition is key to building muscle memory for emergencies.</p>
+                    `;
+                    return;
+                }
+                contentDiv.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-4">${module.content.drill.title} - Step ${currentStep + 1}</h3>
+                    <div class="bg-slate-100 p-6 rounded-lg">
+                        <p class="text-lg font-medium">${module.content.drill.steps[currentStep]}</p>
+                    </div>
+                    <button class="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700" onclick="nextDrillStep()">Next Step</button>
+                `;
+            };
+
+            window.nextDrillStep = () => {
+                currentStep++;
+                renderDrillStep();
+            };
+            
+            renderDrillStep();
+        };
+
+        const renderAlertsPage = () => {
+            mainContent.innerHTML = `
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold">Region-Specific Alerts</h1>
+                    <p class="text-slate-600 mt-2">Select your state to view simulated disaster alerts.</p>
+                </div>
+                <div class="max-w-md mx-auto mb-8">
+                    <select id="region-selector" class="w-full p-3 border rounded-lg">
+                        <option value="">-- Select a State --</option>
+                        ${Object.keys(alerts).map(state => `<option value="${state}">${state}</option>`).join('')}
+                    </select>
+                </div>
+                <div id="alert-display" class="max-w-3xl mx-auto">
+                    <!-- Alert will be displayed here -->
+                </div>
+            `;
+            document.getElementById('region-selector').addEventListener('change', (e) => {
+                const state = e.target.value;
+                const alertDisplay = document.getElementById('alert-display');
+                if (state) {
+                    const alert = alerts[state];
+                    const colors = {
+                        'Red': 'bg-red-100 border-red-500 text-red-700',
+                        'Orange': 'bg-orange-100 border-orange-500 text-orange-700',
+                        'Yellow': 'bg-yellow-100 border-yellow-500 text-yellow-700',
+                    }
+                    alertDisplay.innerHTML = `
+                        <div class="border-l-4 p-4 rounded-r-lg ${colors[alert.level]}" role="alert">
+                           <p class="font-bold">Alert Level: ${alert.level} - ${alert.type}</p>
+                           <p>${alert.message}</p>
+                        </div>
+                    `;
+                } else {
+                    alertDisplay.innerHTML = '';
+                }
+            });
+        };
+
+        const renderDirectoryPage = () => {
+             mainContent.innerHTML = `
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold">Emergency Directory</h1>
+                    <p class="text-slate-600 mt-2">Important contact numbers for emergency situations.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    ${emergencyContacts.map(contact => `
+                        <div class="bg-white p-6 rounded-lg shadow-md flex justify-between items-center">
+                            <div>
+                                <p class="font-semibold text-lg">${contact.name}</p>
+                                <p class="text-2xl text-blue-600 font-bold tracking-wider">${contact.number}</p>
+                            </div>
+                            <a href="tel:${contact.number.replace(/\s/g, '')}" class="bg-green-500 text-white p-3 rounded-full hover:bg-green-600">
+                                <i data-lucide="phone"></i>
+                            </a>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="mt-16 text-center">
+                     <h2 class="text-2xl font-bold">Simulated Emergency Communication</h2>
+                     <p class="text-slate-600 mt-2 max-w-2xl mx-auto">This is a mock-up of a real-time communication tool for use during an emergency. All students and staff would see these messages.</p>
+                     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg mt-6 text-left">
+                        <div class="p-4 border-b font-semibold bg-red-600 text-white rounded-t-lg">Emergency Broadcast Channel</div>
+                        <div class="p-4 h-64 overflow-y-auto space-y-4">
+                            <div class="flex">
+                                <div class="bg-slate-200 rounded-lg p-3 max-w-xs">
+                                    <p class="font-bold text-sm">Principal Sharma</p>
+                                    <p>An earthquake has been reported. All students and staff, please follow the 'Drop, Cover, and Hold On' protocol immediately. Await further instructions.</p>
+                                    <p class="text-xs text-slate-500 text-right mt-1">9:30 AM</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <div class="bg-blue-500 text-white rounded-lg p-3 max-w-xs">
+                                     <p class="font-bold text-sm">You</p>
+                                    <p>Acknowledged. Class 10B is under desks.</p>
+                                    <p class="text-xs text-blue-200 text-right mt-1">9:31 AM</p>
+                                </div>
+                            </div>
+                             <div class="flex">
+                                <div class="bg-slate-200 rounded-lg p-3 max-w-xs">
+                                    <p class="font-bold text-sm">Principal Sharma</p>
+                                    <p>The shaking has stopped. Staff, please check for injuries and report status. Prepare for evacuation on my signal.</p>
+                                    <p class="text-xs text-slate-500 text-right mt-1">9:35 AM</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t flex">
+                            <input type="text" placeholder="Type your message..." class="w-full p-2 border rounded-l-lg" disabled>
+                            <button class="bg-blue-500 text-white px-4 rounded-r-lg" disabled>Send</button>
+                        </div>
+                     </div>
+                </div>
+             `;
+             lucide.createIcons();
+        };
+        
+        const renderDashboardPage = () => {
+            mainContent.innerHTML = `
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold">Administrator Dashboard</h1>
+                    <p class="text-slate-600 mt-2">Analytics for Delhi Public School, Visakhapatnam</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                        <div class="bg-blue-100 text-blue-600 rounded-full p-4 mr-4">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-sm">Overall Preparedness Score</p>
+                            <p class="text-3xl font-bold">82%</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                         <div class="bg-green-100 text-green-600 rounded-full p-4 mr-4">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-sm">Drill Participation</p>
+                            <p class="text-3xl font-bold">95%</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md flex items-center">
+                         <div class="bg-yellow-100 text-yellow-600 rounded-full p-4 mr-4">
+                            <i data-lucide="graduation-cap" class="w-8 h-8"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-500 text-sm">Modules Completed</p>
+                            <p class="text-3xl font-bold">78%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4">Module Completion Rate</h3>
+                        <canvas id="moduleChart"></canvas>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center">
+                                <div class="bg-green-100 text-green-600 rounded-full p-2 mr-4"><i data-lucide="check-circle-2"></i></div>
+                                <div><span class="font-semibold">Class 12A</span> completed the Fire Safety virtual drill.</div>
+                            </li>
+                            <li class="flex items-center">
+                                <div class="bg-blue-100 text-blue-600 rounded-full p-2 mr-4"><i data-lucide="book-open"></i></div>
+                                <div><span class="font-semibold">Rohan Kumar</span> (Class 9C) scored 100% on the Earthquake quiz.</div>
+                            </li>
+                             <li class="flex items-center">
+                                <div class="bg-red-100 text-red-600 rounded-full p-2 mr-4"><i data-lucide="alert-triangle"></i></div>
+                                <div><span class="font-semibold">Class 8B</span> has a low participation rate (45%) for the Flood module.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            lucide.createIcons();
+            
+            // Chart.js implementation
+            const ctx = document.getElementById('moduleChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Earthquake', 'Flood', 'Fire', 'Cyclone'],
+                    datasets: [{
+                        label: '% Completion',
+                        data: [85, 60, 92, 71],
+                        backgroundColor: [
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(75, 192, 192, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                             max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        };
+
+        const renderLoginPage = () => {
+             mainContent.innerHTML = `
+                <div class="max-w-md mx-auto mt-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <div class="text-center mb-8">
+                             <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                               <i data-lucide="log-in" class="w-8 h-8"></i>
+                            </div>
+                            <h1 class="text-3xl font-bold">Login</h1>
+                            <p class="text-slate-500">Access your dashboard or learning portal.</p>
+                        </div>
+                        <form onsubmit="event.preventDefault(); alert('Login functionality is a demonstration.');">
+                            <div class="mb-4">
+                                <label for="role" class="block text-sm font-medium text-slate-700 mb-2">I am a:</label>
+                                <select id="role" name="role" class="w-full p-3 border rounded-lg bg-slate-50">
+                                    <option value="student">Student</option>
+                                    <option value="administrator">Administrator / Teacher</option>
+                                </select>
+                            </div>
+                             <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 border rounded-lg" placeholder="your.email@school.com" required>
+                            </div>
+                             <div class="mb-6">
+                                <label for="password" class="block text-sm font-medium text-slate-700 mb-2">Password</label>
+                                <input type="password" id="password" name="password" class="w-full p-3 border rounded-lg" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                                Sign In
+                            </button>
+                            <p class="text-center text-sm text-slate-500 mt-6">
+                                <a href="#" class="text-blue-600 hover:underline">Forgot your password?</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // --- ROUTING ---
+        const navigateTo = (page, param) => {
+            window.scrollTo(0, 0);
+            mobileMenu.classList.add('hidden');
+            switch (page) {
+                case 'home':
+                    renderHomePage();
+                    break;
+                case 'modules':
+                    renderModulesPage();
+                    break;
+                case 'moduleDetail':
+                    renderModuleDetailPage(param);
+                    break;
+                case 'alerts':
+                    renderAlertsPage();
+                    break;
+                case 'directory':
+                    renderDirectoryPage();
+                    break;
+                case 'dashboard':
+                    renderDashboardPage();
+                    break;
+                case 'login':
+                    renderLoginPage();
+                    break;
+                default:
+                    renderHomePage();
+            }
+        };
+
+        // Initial load
+        window.onload = () => {
+            renderHomePage();
+            lucide.createIcons();
+        };
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
